@@ -72,7 +72,7 @@ const MyClients = ({clients}) => {
   const handleDelete = async (id) => {
     try {
       alert(`Do you want to delete the Client with id ${id}`);
-      const response = await fetch(`http://localhost:3000/api/clients/${id}`, {
+      const response = await fetch(`/api/clients/${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
