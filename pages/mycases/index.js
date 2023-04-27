@@ -10,7 +10,10 @@ import { useSession } from "next-auth/react";
 
 import {useRouter} from 'next/router'
 import Login from "../auth/login";
-const MyCases = () => {
+
+import { getCases } from "@/libs/Cases";
+const MyCases = ({cases}) => {
+  console.log(cases)
   const router = useRouter(); 
   const {data: sesssion} = useSession(); 
   const [data, setData] = useState({
@@ -36,23 +39,23 @@ const MyCases = () => {
 
   const [searchItem, setSearchItem] = useState("");
 
-  const [courtCases, setCourtCases] = useState([]);
+  const [courtCases, setCourtCases] = useState(cases);
 
-  useEffect(() => {
-    const fetchCases = async () => {
-     const response = await fetch("/api/cases", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json"
-      }
-     }); 
-     const data = await response.json(); 
-      setCourtCases(data);
+  // useEffect(() => {
+  //   const fetchCases = async () => {
+  //    const response = await fetch("/api/cases", {
+  //     method: "GET",
+  //     headers: {
+  //       "Content-Type": "application/json"
+  //     }
+  //    }); 
+  //    const data = await response.json(); 
+  //     setCourtCases(data);
       
-    };
+  //   };
 
-    fetchCases();
-  }, []);
+  //   fetchCases();
+  // }, []);
 
   if(!sesssion?.user?.email) {
     return <Login />
@@ -102,5 +105,17 @@ const MyCases = () => {
     </Layout>
   );
 };
+
+
+export const getServerSideProps = async () => {
+  const cases = await getCases(); 
+
+  return {
+    props: {
+      cases: cases
+    }
+  }
+}
+
 
 export default MyCases;

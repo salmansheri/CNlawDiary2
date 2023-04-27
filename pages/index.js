@@ -11,19 +11,14 @@ import { useRouter } from "next/router";
 import Login from "./auth/login";
 import { useSession } from "next-auth/react";
 import axios from "axios";
+import { getCases } from "@/libs/Cases";
 // import useCourtCase from "@/hooks/useCourstCase";
 
-
-
-
-
-
-
-
-export default function Home({}) {
+export default function Home({ cases }) {
   // const user = useSelector(state => state.user);
+  console.log(cases);
 
-  const [courtCases, setCourtCases] = useState([]);
+  const [courtCases, setCourtCases] = useState(cases);
   const router = useRouter();
 
   const { data: session } = useSession();
@@ -33,28 +28,14 @@ export default function Home({}) {
   // const {data: courtCases} = useCourtCase();
   // console.log(courtCases)
 
-  useEffect(() => {
-    const fetchCases = async () => {
-      const response = await axios.get("/api/cases");
-      const { data } = response;
-      setCourtCases(data);
-      // console.log(courtCases)
-    };
- 
-
-    fetchCases();
-  }, [router, session?.user?.email]);
-
+  
   const undatedCases = courtCases.filter(
     (cases) => cases.casestatus === "undated"
   );
 
-
   if (!session?.user?.email) {
     return <Login />;
   }
-
-
 
   return (
     <>
@@ -71,8 +52,19 @@ export default function Home({}) {
           <div>
             <Notification undatedCases={undatedCases.length} />
           </div>
+         
         </div>
       </Layout>
     </>
   );
 }
+
+export const getServerSideProps = async () => {
+  const cases = await getCases();
+
+  return {
+    props: {
+      cases: cases,
+    },
+  };
+};
