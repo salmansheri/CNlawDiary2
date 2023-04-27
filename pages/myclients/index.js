@@ -8,12 +8,13 @@ import Search from "@/components/Search";
 import { useSession } from "next-auth/react";
 import Login from "../auth/login";
 import axios from "axios";
+import { getClients } from "@/libs/clients";
 
-const MyClients = () => {
+const MyClients = ({clients}) => {
   const {data: session} = useSession(); 
   const [isClicked, setIsClicked] = useState(false);
 
-  const [clients, setClients] = useState([]); 
+  // const [clients, setClients] = useState([]); 
   const [myClients, setMyClients] = useState(clients);
 
   const [name, setName] = useState("");
@@ -23,23 +24,23 @@ const MyClients = () => {
   const router = useRouter();
   const [searchItem, setSearchItem] = useState("");  
 
-  useEffect(() => {
-    const fetchClients = async () => {
-      const response = await fetch("http://localhost:3000/api/clients", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+  // useEffect(() => {
+  //   const fetchClients = async () => {
+  //     const response = await fetch("http://localhost:3000/api/clients", {
+  //   method: "GET",
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //   },
+  // });
 
-  const data = await response.json();
-  setClients(data)
-  console.log(data)
-    }
+  // const data = await response.json();
+  // setClients(data)
+  // console.log(data)
+  //   }
 
-    fetchClients(); 
+  //   fetchClients(); 
 
-  }, [])
+  // }, [])
   
 
   const handleClick = async () => {
@@ -140,21 +141,16 @@ const MyClients = () => {
   );
 };
 
-// export const getServerSideProps = async () => {
-//   const response = await fetch("http://localhost:3000/api/clients", {
-//     method: "GET",
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//   });
+export const getServerSideProps = async () => {
+ const data = await getClients(); 
 
-//   const data = await response.json();
+ 
 
-//   return {
-//     props: {
-//       clients: data,
-//     },
-//   };
-// };
+  return {
+    props: {
+      clients: data,
+    },
+  };
+};
 
 export default MyClients;
