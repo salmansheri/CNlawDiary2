@@ -17,9 +17,9 @@ export default async function handler(req, res) {
       const clients = await prisma.client.create({
         data: {
           name,
-          email,
+          address,         
           mobile,
-          email,
+         email,
 
         }
       })

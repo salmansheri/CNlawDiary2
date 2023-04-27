@@ -3,9 +3,9 @@ import Loader from "@/components/Loader";
 import useCurrentUser from "@/hooks/useCurrentUser";
 
 const MyProfilePage = () => {
-  const { data: currentUser, isLoading } = useCurrentUser();
+  const { data: currentUser = [], isLoading } = useCurrentUser();
 
-  console.log(currentUser);
+  
 
   if (isLoading) {
     return <Loader />;

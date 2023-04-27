@@ -1,58 +1,52 @@
 import Layout from "@/components/Layout";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
+import { getCases } from "@/libs/Cases";
+import { useSession } from "next-auth/react";
+import Login from "../auth/login";
 
-// const shedule = () => {
-//   return (
-//     <>
-//       {courtCases.map((cases, index) => (
-//         <p key={cases._id} index={index}>
-//           {cases.name}
-//         </p>
-//       ))}
-//     </>
-//   );
-// };
+const CalendarPage = ({ courtCases }) => {
+  const { data: session } = useSession();
 
-const index = () => {
+  const [events, setEvents] = useState([]);
+
+  useEffect(() => {
+    const Events = courtCases.map((cases) => ({
+      title: cases.casename,
+      date: cases.date,
+    }));
+
+    setEvents(Events);
+  }, [courtCases]);
+
   
+
+  if (!session?.user?.email) {
+    return <Login />;
+  }
+
   return (
     <Layout>
       <div className="mt-[100px]">
         <FullCalendar
           plugins={[dayGridPlugin]}
           initialView="dayGridMonth"
-          
+          events={events}
         />
       </div>
     </Layout>
   );
 };
 
-// export const getServerSideProps = async () => {
-//   const response = await fetch("http://localhost:3000/api/cases", {
-//     method: "GET",
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//   });
+export const getServerSideProps = async () => {
+  const cases = await getCases();
 
-//   const data = await response.json();
+  return {
+    props: {
+      courtCases: cases,
+    },
+  };
+};
 
-//   return {
-//     props: {
-//       courtCases: data,
-//     },
-//   };
-// };
-
-export default index;
-
-// [
-//   { title: 'event 1', date: '2023-04-01' },
-//   { title: 'event 2', date: '2023-04-02' },
-//   { title: 'event 2', date: '2023-04-09' },
-//   { title: 'event 2', date: '2023-04-05' },
-//   { title: 'event 2', date: '2023-04-04' },
-//   { title: 'event 2', date: '2023-05-04' },
+export default CalendarPage;

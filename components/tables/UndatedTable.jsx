@@ -24,7 +24,7 @@ const UndatedTable = ({ courtCases, searchItem }) => {
           .map((cases, index) => (
             <tbody key={cases._id} index={index}>
               <tr className="h-10">
-                <td>{cases._id}</td>
+                <td>{cases.id}</td>
                 <td>{cases.regno}</td>
                 <td>{cases.clientname}</td>
                 <td>{cases.date}</td>
