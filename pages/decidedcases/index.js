@@ -54,22 +54,22 @@ const DecidedCases = () => {
   )
 }
 
-export const getServerSideProps = async () => {
-  const response = await fetch("http://localhost:3000/api/cases", {
-    method: "GET", 
-    headers: {
-      'Content-Type': 'application/json', 
-    }
-  })
+// export const getServerSideProps = async () => {
+//   const response = await fetch("http://localhost:3000/api/cases", {
+//     method: "GET", 
+//     headers: {
+//       'Content-Type': 'application/json', 
+//     }
+//   })
 
-  const data = await response.json(); 
+//   const data = await response.json(); 
 
-  return {
-    props: {
-      courtCases: data, 
-    }
-  }
+//   return {
+//     props: {
+//       courtCases: data, 
+//     }
+//   }
 
-}
+// }
 
 export default DecidedCases

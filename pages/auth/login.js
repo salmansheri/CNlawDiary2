@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 // import { useDispatch } from 'react-redux'; 
 // import { loggedUser } from "@/redux/userSlice";
 import { signIn } from "next-auth/react";
+import { useDispatch } from "react-redux";
 
 const Login = () => {
   const [email, setEmail] = useState("");

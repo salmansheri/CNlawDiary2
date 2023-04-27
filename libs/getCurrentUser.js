@@ -1,12 +1,18 @@
-import { getSession } from "next-auth/react";
+// import { getSession } from "next-auth/react";
+import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import prisma from "./prismaDB";
+import { getServerSession } from "next-auth";
 
-export default async function getCurrentUser(req) {
-    const session = await  getSession({req}); 
+export default async function getCurrentUser() {
+    // const session = await  getSession({req}); 
+
+    const session = await getServerSession(authOptions); 
 
     
 
-    if(!session?.user?.email) {
+    
+
+    if(!session?.user.email) {
         throw new Error("Not Logged In")
 
     }

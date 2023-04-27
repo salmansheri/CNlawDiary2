@@ -42,7 +42,7 @@ const handler = async (req, res) => {
           id: id,
         },
       });
-      res.status(200).json(client);
+      res.status(200);
       console.log(`Client with id: ${id} has been deleted successfully`);
 
       res.status(200).json("Deleted  successfully");

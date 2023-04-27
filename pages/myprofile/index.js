@@ -1,15 +1,36 @@
 import Layout from "@/components/Layout";
-import Loader from "@/components/Loader";
-import useCurrentUser from "@/hooks/useCurrentUser";
 
-const MyProfilePage = () => {
-  const { data: currentUser = [], isLoading } = useCurrentUser();
+import { getServerSession } from "next-auth";
+import { authOptions } from "../api/auth/[...nextauth]";
+import getProfile from "@/libs/getProfile";
+
+
+export async function getServerSideProps(context) {
+  const session = await getServerSession(context.req, context.res, authOptions)
+  if(!session.user.email) {
+    throw new Error("not signed in")
+  }
+
+  const { profile} = await getProfile(session?.user?.email)
+  
+
+  return {
+    props: {
+      currentUser: profile
+    }
+  }
+}
+
+
+
+
+
+const MyProfilePage = ({currentUser}) => {
+  console.log(currentUser)
+
 
   
 
-  if (isLoading) {
-    return <Loader />;
-  }
 
   return (
     <Layout>
@@ -35,5 +56,8 @@ const MyProfilePage = () => {
     </Layout>
   );
 };
+
+
+
 
 export default MyProfilePage;
