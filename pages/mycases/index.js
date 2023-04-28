@@ -13,7 +13,7 @@ import Login from "../auth/login";
 
 import { getCases } from "@/libs/Cases";
 const MyCases = ({cases}) => {
-  console.log(cases)
+  
   const router = useRouter(); 
   const {data: sesssion} = useSession(); 
   const [data, setData] = useState({

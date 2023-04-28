@@ -4,7 +4,7 @@ import ReactWhatsapp from 'react-whatsapp';
 const ClientTable = ({handleDelete, setIsClicked, myClients, searchItem}) => {
   return (
     <div className="bg-white w-full rounded-lg overflow-auto shadow-md">
-          <table className="border  w-full text-md text-center">
+          <table className="border  w-full text-xs md:text-base text-center">
             <thead className="h-10 bg-black text-white">
               <tr>
                 <th>S.No</th>
@@ -18,7 +18,7 @@ const ClientTable = ({handleDelete, setIsClicked, myClients, searchItem}) => {
               </tr>
             </thead>
             {myClients.filter(client  => client.name.toLowerCase().includes(searchItem.toLowerCase())).map((client, index) => (
-               <tbody key={client._id} index={index}>
+               <tbody key={client.id} index={index}>
                <tr className="h-10">
                  <td>{index + 1}</td>
                  <td>{client._id}</td>

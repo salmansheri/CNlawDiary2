@@ -14,7 +14,7 @@ const CasesTable = ({courtCases, searchItem}) => {
 
     const handleUndated = async (id) => {
         try {
-            const response = await fetch(`http://localhost:3000/api/cases/${id}`, {
+            const response = await fetch(`/api/cases/${id}`, {
                 method: "PUT", 
                 headers: {
                     'Content-Type': 'application/json', 
@@ -24,9 +24,12 @@ const CasesTable = ({courtCases, searchItem}) => {
                 })
             })
 
-            console.log("success")
+            if(response.status === 200) {
+                alert("success")
+            }
 
         }catch(err) {
+            alert("something went wrong")
             console.log(err); 
             
         }
@@ -36,7 +39,7 @@ const CasesTable = ({courtCases, searchItem}) => {
 
     const handleDecided = async (id) => {
         try {
-            const response = await fetch(`http://localhost:3000/api/cases/${id}`, {
+            const response = await fetch(`/api/cases/${id}`, {
                 method: "PUT", 
                 headers: {
                     'Content-Type':'application/json', 
@@ -46,12 +49,13 @@ const CasesTable = ({courtCases, searchItem}) => {
                 })
             })
 
-            const data = await response.json(); 
-
-            if(data) {
-                console.log("success")
-
+            if(response.status === 200) {
+                alert("success")
             }
+
+            
+
+            
 
            
 
@@ -70,7 +74,7 @@ const CasesTable = ({courtCases, searchItem}) => {
 
 
         <div className="bg-white w-full rounded-lg shadow-md overflow-auto">
-         <table className="border  w-full text-md text-center rounded-lg">
+         <table className="border  w-full text-xs md:text-base text-center rounded-lg">
             <thead className="h-10 bg-black text-white">
                 <tr>
                     <th>S.no</th>

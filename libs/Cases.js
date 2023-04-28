@@ -5,3 +5,13 @@ export async function getCases() {
 
     return cases; 
 }
+
+export async function getCase(id) {
+    const courtCase = await prisma.cases.findUnique({
+        where: {
+            id: id
+        }
+    })
+
+    return courtCase; 
+}

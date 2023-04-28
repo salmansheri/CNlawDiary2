@@ -24,11 +24,14 @@ const handler = async (req, res) => {
 
     if(method === "PUT") {
         try {
+            const {casestatus} = req.body
             const courtCase = await prisma.cases.update({
                 where: {
                     id: id
                 }, 
-                data: req.body,
+                data: {
+                    casestatus
+                }
             }) 
 
             res.status(200).json(courtCase); 

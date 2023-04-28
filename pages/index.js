@@ -16,7 +16,7 @@ import { getCases } from "@/libs/Cases";
 
 export default function Home({ cases }) {
   // const user = useSelector(state => state.user);
-  console.log(cases);
+  
 
   const [courtCases, setCourtCases] = useState(cases);
   const router = useRouter();

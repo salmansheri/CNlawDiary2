@@ -5,6 +5,7 @@ import AddCases from "@/components/AddCases";
 import CourtsTable from "@/components/tables/CourtsTable";
 import { useSession } from "next-auth/react";
 import Login from "../auth/login";
+import EmptyState from "@/components/EmptyState";
 
 const MyCourtsPage = () => {
   const { data: session } = useSession(); 
@@ -13,7 +14,7 @@ const MyCourtsPage = () => {
 
   useEffect(() => {
     const fetchCases = async () => {
-      const response = await fetch("http://localhost:3000/api/cases", {
+      const response = await fetch("/api/cases", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -27,9 +28,16 @@ const MyCourtsPage = () => {
     fetchCases();
   }, []);
 
+  
+
   if(!session?.user?.email) {
     return <Login />
   }
+
+  if(courtCases.length === 0) {
+    return <EmptyState title="No Cases" subtitle="Looks like you dont have cases yet" />
+  }
+
 
   return (
     <Layout>

@@ -5,8 +5,8 @@ const UndatedTable = ({ courtCases, searchItem }) => {
 
     
   return (
-    <div className="bg-white w-full rounded-lg overflow-hidden shadow-md">
-      <table className="border  w-full text-md text-center">
+    <div className="bg-white w-full rounded-lg overflow-auto shadow-md">
+      <table className="border  w-full text-xs md:text-base text-center">
         <thead className="h-10 bg-black text-white">
           <tr>
             <th>ID</th>
@@ -22,7 +22,7 @@ const UndatedTable = ({ courtCases, searchItem }) => {
                               
           )
           .map((cases, index) => (
-            <tbody key={cases._id} index={index}>
+            <tbody key={cases.id} index={index}>
               <tr className="h-10">
                 <td>{cases.id}</td>
                 <td>{cases.regno}</td>

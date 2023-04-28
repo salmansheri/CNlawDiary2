@@ -12,7 +12,7 @@ const Sidebar = () => {
     // const dispatch = useDispatch();
     // const user = useSelector(state => state.user)  
     // const { id } = user; 
-    console.log(pathname)
+    
     const isMyCases = pathname.includes("mycases")
     const isMyCalender = pathname.includes("mycalender")
     const isMyCourts = pathname.includes("mycourts");
@@ -31,13 +31,13 @@ const Sidebar = () => {
 
 
 
-    const Active = "font-semibold  text-xl bg-blue-500 p-2 rounded-md text-white"
+    const Active = "font-semibold  text-sm md:text-md lg:text-lg xl:text-xl bg-blue-500 p-2 rounded-md text-white"
 
-    const NonActive = "font-semibold  text-xl hover:bg-blue-300 p-2 rounded-md rounded-md  cursor-pointer"
+    const NonActive = "font-semibold  text-sm md:text-md lg:text-lg xl:text-xl hover:bg-blue-300 p-2 rounded-md rounded-md  cursor-pointer"
   return (
-    <div className="px-5  shadow-lg h-full">
+    <div className="px-5  shadow-lg h-full text-lg md:text-xl lg:text-2xl">
         <div>
-            <h1 className="font-bold mt-5 text-3xl text-gray-500 mb-10">Dashboard</h1>
+            <h1 className="font-bold mt-5  text-gray-500 mb-10">Dashboard</h1>
             <Link href="/">
            
             <div className={ isHome ? Active : NonActive}>Home</div>
